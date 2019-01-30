@@ -1,0 +1,34 @@
+{
+    "name": "mihdan/mihdan-clockwork",
+    "description": "WordPress plugin for using clockwork",
+    "keywords": [
+        "wordpress",
+        "debugging",
+        "profiling",
+        "logging",
+        "laravel",
+        "lumen",
+        "slim",
+        "devtools"
+    ],
+    "license": "GPL-2.0",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Mikhail Kobzarev",
+            "email": "mikhail@kobzarev.com"
+        }
+    ],
+    "require": {
+        "composer/installers": "*",
+        "itsgoingd/clockwork": "3.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Clockwork\\": "Clockwork/"
+        },
+        "classmap": [
+            "includes"
+        ]
+    }
+}
