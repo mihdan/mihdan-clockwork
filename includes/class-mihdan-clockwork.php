@@ -35,7 +35,6 @@ class Core {
 		$this->clockwork->addDataSource( new PhpDataSource() );
 		$this->clockwork->setStorage( new FileStorage( MIHDAN_CLOCKWORK_PATH . '/tmp' ) );
 		$this->clockwork->notice( __( 'Application Started', 'mihdan-clockwork' ) );
-
 	}
 
 	public function send_headers() {
@@ -66,6 +65,7 @@ class Core {
 		];
 
 		$this->clockwork->notice( __( 'Application Shutdown', 'mihdan-clockwork' ) );
+		//$this->clockwork->error( $this );
 		$this->clockwork->resolveRequest();
 		$this->clockwork->storeRequest();
 	}
@@ -81,7 +81,7 @@ class Core {
 			$request = explode( '/', $request );
 			$storage = new FileStorage( MIHDAN_CLOCKWORK_PATH . '/tmp' );
 
-			$data = $storage->retrieve( $request[2] );
+			$data = $storage->find( $request[2] );
 
 			echo $data->toJson();
 
