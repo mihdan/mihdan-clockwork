@@ -5,7 +5,7 @@ use Clockwork\Clockwork;
 use Clockwork\DataSource\PhpDataSource;
 use Clockwork\Storage\FileStorage;
 
-class Clockwork_Main {
+class Core {
 
 	/**
 	 * @var Clockwork
@@ -32,14 +32,15 @@ class Clockwork_Main {
 
 		$this->start = microtime( true );
 
-		header( 'X-Clockwork-Id: ' . $this->clockwork->getRequest()->id );
-		header( 'X-Clockwork-Version: ' . $this->version );
-
 		$this->clockwork->addDataSource( new PhpDataSource() );
 		$this->clockwork->setStorage( new FileStorage( MIHDAN_CLOCKWORK_PATH . '/tmp' ) );
-
 		$this->clockwork->notice( __( 'Application Started', 'mihdan-clockwork' ) );
 
+	}
+
+	public function send_headers() {
+		header( 'X-Clockwork-Id: ' . $this->clockwork->getRequest()->id );
+		header( 'X-Clockwork-Version: ' . $this->version );
 	}
 
 	public function shutdown() {
@@ -93,6 +94,7 @@ class Clockwork_Main {
 	public function hooks() {
 		if ( WP_DEBUG ) {
 			add_action( 'init', array( $this, 'init' ) );
+			add_action( 'send_headers', array( $this, 'send_headers' ) );
 			add_action( 'shutdown', array( $this, 'shutdown' ) );
 			add_action( 'parse_request', array( $this, 'url_handler' ) );
 		} else {
@@ -102,7 +104,7 @@ class Clockwork_Main {
 	public function admin_notice() {
 		?>
 		<div class="notice notice-info">
-			<p><?php _e( 'You have the Mihdan: Clockwork plugin enabled but need to turn debug mode on to make it work.', 'mihdan-clockwork' ); ?></p>
+			<p><?php _e( 'You have the <b>Mihdan: Clockwork</b> plugin enabled but need to turn debug mode on to make it work.', 'mihdan-clockwork' ); ?></p>
 		</div>
 		<?php
 	}

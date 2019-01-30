@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Mihdan Clockwork
+ * Plugin Name:     Mihdan: Clockwork
  * Plugin URI:      https://wordpress.org/plugins/mihdan-clockwork/
  * Description:     WordPress plugin for using clockwork
  * Author:          Mikhail Kobzarev
@@ -11,7 +11,7 @@
  *
  * @package         Mihdan_Clockwork
  */
-use Mihdan\Clockwork\Clockwork_Main;
+use Mihdan\Clockwork\Core;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +25,7 @@ if ( ! isset( $plugin ) ) {
 
 	require_once MIHDAN_CLOCKWORK_PATH . '/vendor/autoload.php';
 
-	$plugin = new Clockwork_Main();
+	$plugin = new Core();
 }
 
 // eof;
