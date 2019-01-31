@@ -102,9 +102,11 @@ final class Core {
 	}
 
 	public function hooks() {
-		if ( WP_DEBUG ) {
+
+		if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'send_headers', array( $this, 'send_headers' ) );
+			add_action( 'admin_init', array( $this, 'send_headers' ) );
 			add_action( 'shutdown', array( $this, 'shutdown' ) );
 			add_action( 'parse_request', array( $this, 'url_handler' ) );
 		} else {
