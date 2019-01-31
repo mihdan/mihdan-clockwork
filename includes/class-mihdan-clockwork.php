@@ -124,6 +124,10 @@ final class Core {
 	public function error( $message ) {
 		return $this->clockwork->error( $message );
 	}
+
+	public function alert( $message ) {
+		return $this->clockwork->alert( $message );
+	}
 }
 
 //eof;
