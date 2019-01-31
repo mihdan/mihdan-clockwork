@@ -25,7 +25,11 @@ if ( ! isset( $plugin ) ) {
 
 	require_once MIHDAN_CLOCKWORK_PATH . '/vendor/autoload.php';
 
-	$plugin = new Core();
+	function mihdan_clockwork() {
+		return Core::get_instance();
+	}
+
+	$plugin = mihdan_clockwork();
 }
 
 // eof;

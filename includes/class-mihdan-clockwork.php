@@ -3,9 +3,10 @@ namespace Mihdan\Clockwork;
 
 use Clockwork\Clockwork;
 use Clockwork\DataSource\PhpDataSource;
+use Clockwork\Request\Request;
 use Clockwork\Storage\FileStorage;
 
-class Core {
+final class Core {
 
 	/**
 	 * @var Clockwork
@@ -14,10 +15,20 @@ class Core {
 	private $start;
 	private $end;
 	private $version;
+	protected static $instance = null;
 
-	public function __construct() {
+	private function __construct() {
 		$this->setup();
 		$this->hooks();
+	}
+
+	public static function get_instance() {
+
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
 	public function setup() {
@@ -47,16 +58,12 @@ class Core {
 
 		$this->end = microtime( true );
 		$request   = $this->clockwork->getRequest();
-		$queries   = array();
 
 		foreach ( $wpdb->queries as $query ) {
-			$queries[] = [
-				'query'    => $query[0],
-				'duration' => $query[1],
-			];
+			$request->addDatabaseQuery( $query[0], [], $query[1] );
 		}
 
-		$request->databaseQueries       = $queries;
+		//$request->addEvent()
 		$request->timelineData['total'] = [
 			'start'       => $this->start,
 			'end'         => $this->end,
@@ -81,6 +88,7 @@ class Core {
 			$request = explode( '/', $request );
 			$storage = new FileStorage( MIHDAN_CLOCKWORK_PATH . '/tmp' );
 
+			/** @var Request $data */
 			$data = $storage->find( $request[2] );
 
 			echo $data->toJson();
@@ -107,6 +115,14 @@ class Core {
 			<p><?php _e( 'You have the <b>Mihdan: Clockwork</b> plugin enabled but need to turn debug mode on to make it work.', 'mihdan-clockwork' ); ?></p>
 		</div>
 		<?php
+	}
+
+	public function notice( $message ) {
+		return $this->clockwork->notice( $message );
+	}
+
+	public function error( $message ) {
+		return $this->clockwork->error( $message );
 	}
 }
 
