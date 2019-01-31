@@ -59,8 +59,10 @@ final class Core {
 		$this->end = microtime( true );
 		$request   = $this->clockwork->getRequest();
 
-		foreach ( $wpdb->queries as $query ) {
-			$request->addDatabaseQuery( $query[0], [], $query[1] );
+		if ( count( $wpdb->queries ) ) {
+			foreach ( $wpdb->queries as $query ) {
+				$request->addDatabaseQuery( $query[0], [], $query[1] );
+			}
 		}
 
 		//$request->addEvent()
