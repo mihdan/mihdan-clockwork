@@ -59,7 +59,7 @@ final class Core {
 		$this->end = microtime( true );
 		$request   = $this->clockwork->getRequest();
 
-		if ( count( $wpdb->queries ) ) {
+		if ( is_countable( $wpdb->queries ) && count( $wpdb->queries ) ) {
 			foreach ( $wpdb->queries as $query ) {
 				$request->addDatabaseQuery( $query[0], [], $query[1] );
 			}
