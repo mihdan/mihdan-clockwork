@@ -8,6 +8,16 @@ use Clockwork\Storage\FileStorage;
 
 final class Core {
 
+	const EMERGENCY = 'emergency';
+	const ALERT     = 'alert';
+	const CRITICAL  = 'critical';
+	const ERROR     = 'error';
+	const WARNING   = 'warning';
+	const NOTICE    = 'notice';
+	const INFO      = 'info';
+	const DEBUG     = 'debug';
+
+
 	/**
 	 * @var Clockwork
 	 */
@@ -109,6 +119,10 @@ final class Core {
 			add_action( 'admin_init', array( $this, 'send_headers' ) );
 			add_action( 'shutdown', array( $this, 'shutdown' ) );
 			add_action( 'parse_request', array( $this, 'url_handler' ) );
+
+			foreach ( $this->get_levels() as $level ) {
+				add_action( "mc/{$level}", array( $this, $level ), 10, 2 );
+			}
 		} else {
 			add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 		}
@@ -121,16 +135,49 @@ final class Core {
 		<?php
 	}
 
-	public function notice( $message ) {
-		return $this->clockwork->notice( $message );
+	public function emergency( $message, array $context = array() ) {
+		return $this->clockwork->emergency( $message, $context );
 	}
 
-	public function error( $message ) {
-		return $this->clockwork->error( $message );
+	public function alert( $message, array $context = array() ) {
+		return $this->clockwork->alert( $message, $context );
 	}
 
-	public function alert( $message ) {
-		return $this->clockwork->alert( $message );
+	public function critical( $message, array $context = array() ) {
+		return $this->clockwork->critical( $message, $context );
+	}
+
+	public function error( $message, array $context = array() ) {
+		return $this->clockwork->error( $message, $context );
+	}
+
+	public function warning( $message, array $context = array() ) {
+		return $this->clockwork->warning( $message, $context );
+	}
+
+	public function notice( $message, array $context = array() ) {
+		return $this->clockwork->notice( $message, $context );
+	}
+
+	public function info( $message, array $context = array() ) {
+		return $this->clockwork->info( $message, $context );
+	}
+
+	public function debug( $message, array $context = array() ) {
+		return $this->clockwork->debug( $message, $context );
+	}
+
+	public function get_levels() {
+		return array(
+			self::EMERGENCY,
+			self::ALERT,
+			self::CRITICAL,
+			self::ERROR,
+			self::WARNING,
+			self::NOTICE,
+			self::INFO,
+			self::DEBUG,
+		);
 	}
 }
 
