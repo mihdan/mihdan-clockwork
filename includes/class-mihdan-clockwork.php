@@ -49,7 +49,7 @@ final class Core {
 	}
 
 	public function init() {
-		if ( ! defined( 'SAVEQUERIES ' ) ) {
+		if ( ! defined( 'SAVEQUERIES' ) ) {
 			define( 'SAVEQUERIES', true );
 		}
 
