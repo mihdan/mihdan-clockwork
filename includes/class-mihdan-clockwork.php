@@ -49,7 +49,9 @@ final class Core {
 	}
 
 	public function init() {
-		define( 'SAVEQUERIES', true );
+		if ( ! defined( 'SAVEQUERIES ' ) ) {
+			define( 'SAVEQUERIES', true );
+		}
 
 		$this->start = microtime( true );
 
