@@ -121,7 +121,7 @@ final class Core {
 			add_action( 'parse_request', array( $this, 'url_handler' ) );
 
 			foreach ( $this->get_levels() as $level ) {
-				add_action( "mc/{$level}", array( $this, $level ), 10, 2 );
+				add_action( "mc_{$level}", array( $this, $level ), 10, 2 );
 			}
 		} else {
 			add_action( 'admin_notices', array( $this, 'admin_notice' ) );
