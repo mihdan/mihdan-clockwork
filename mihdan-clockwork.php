@@ -7,7 +7,7 @@
  * Author URI:      https://www.kobzarev.com/
  * Text Domain:     mihdan-clockwork
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.1.1
  *
  * @package         Mihdan_Clockwork
  */
