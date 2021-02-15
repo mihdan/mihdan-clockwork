@@ -21,7 +21,7 @@
     ],
     "require": {
         "composer/installers": "*",
-        "itsgoingd/clockwork": "4.0.*"
+        "itsgoingd/clockwork": "5.0.*"
     },
     "autoload": {
         "psr-4": {
