@@ -2,12 +2,12 @@
 /**
  * Plugin Name:     Mihdan: Clockwork
  * Plugin URI:      https://wordpress.org/plugins/mihdan-clockwork/
- * Description:     WordPress plugin for using clockwork
+ * Description:     A plugin under WordPress for debugging using Clockwork
  * Author:          Mikhail Kobzarev
  * Author URI:      https://www.kobzarev.com/
  * Text Domain:     mihdan-clockwork
  * Domain Path:     /languages
- * Version:         0.1.1
+ * Version:         1.0.0
  *
  * @package         Mihdan_Clockwork
  */
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MIHDAN_CLOCKWORK_PATH', dirname( __FILE__ ) );
+const MIHDAN_CLOCKWORK_PATH = __DIR__;
 
 static $plugin;
 
@@ -31,5 +31,3 @@ if ( ! isset( $plugin ) ) {
 
 	$plugin = mihdan_clockwork();
 }
-
-// eof;
